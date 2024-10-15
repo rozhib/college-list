@@ -1,0 +1,37 @@
+import csv
+
+def get_university(file_name, column, word):
+    with open(file_name, mode='r') as file:
+        reader = csv.DictReader(file)
+        # Check if the word is in the name (case-insensitive)
+        return [row[column] for row in reader if word.lower() in row[column].lower()]
+
+def get_university_by_name(file_name, column, name):
+    with open(file_name, mode='r') as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            if row[column].lower() == name.lower():
+                return row
+        return None
+
+file_name = 'data.csv'
+final = []
+column_name = 'INSTNM'
+
+name = input("University Search \n\nEnter the name of the of the university that you want to add to your list. Enter 'Done' to finish. ")
+
+print("")
+
+while(name!="Done"):
+
+    list = get_university(file_name, column_name, name)
+
+    if len(list)==0:
+        name = input("No results. \n\nEnter the name of the of the university that you want to add to your list. Enter 'Done' to finish. ")
+
+    elif len(list)==1:
+        final.append(list[[0]])
+        name = input("Added university: " + list[0] + "\n\nEnter the name of the of the university that you want to add to your list. Enter 'Done' to finish. ")
+
+
+ 
